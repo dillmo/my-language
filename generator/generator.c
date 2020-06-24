@@ -34,22 +34,27 @@ char *program()
 }
 
 /*
- * <expression> -> <identifier> + <identifier>
+ * <expression> -> <expression> + <expression>
  *                 | <identifier>
  */
 char *expression()
 {
   char *sentence;
+  char *tmp;
 
-  sentence = malloc(20 * sizeof(char));
+  sentence = malloc(100 * sizeof(char));
 
   switch (rand() % 2)
   {
-  /* <identifier> + <identifier> */
+  /* <expression> + <expression> */
   case 0:
-    strcpy(sentence, identifier());
+    tmp = expression();
+    strcpy(sentence, tmp);
+    free(tmp);
     strcat(sentence, " + ");
-    strcat(sentence, identifier());
+    tmp = expression();
+    strcat(sentence, tmp);
+    free(tmp);
     break;
   /* <identifier> */
   case 1:
